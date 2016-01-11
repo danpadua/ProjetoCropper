@@ -1,5 +1,5 @@
 /**
- * Plugin Profile Cropper
+ * Plugin Profile Cropper v.1.0
  * Using class 'profile-cropper' for call modal cropper image
  * Author: Danilo Oliveira
  */
@@ -61,7 +61,7 @@ $(function () {
 
 function ModalCropperImageProfile() {
 	var $image = $("#image");
-	var $dataX = $('#dataX');
+	var $dataX = $("#dataX");
 	var $dataY = $("#dataY");
 	var $dataHeight = $("#dataHeight");
 	var $dataWidth = $("#dataWidth");
