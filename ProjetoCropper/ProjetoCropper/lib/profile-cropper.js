@@ -1,4 +1,5 @@
 /**
+ * Plugin Profile Cropper
  * Using class 'profile-cropper' for call modal cropper image
  * Author: Danilo Oliveira
  */
