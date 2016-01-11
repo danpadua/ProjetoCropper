@@ -6,6 +6,8 @@
 var $fileSelected = false;
 
 $(function () {
+    // Tooltip
+    $("[data-toggle=\"tooltip\"]").tooltip();
     if ($(".profile-cropper").length > 0) {
         var htmlContent = "" +
             "<div class=\"col-sm-12\">" +
@@ -86,31 +88,13 @@ function ModalCropperImageProfile() {
     //Seta imagem no modal de edição
 	$("#image").attr("src", $("#imgProfile").attr("src"));
 
-	// Tooltip
-	$("[data-toggle=\"tooltip\"]").tooltip();
-
 	// Cropper
-	$image.on({
-	    'build.cropper': function(e) {},
-	    'built.cropper': function(e) {},
-	    'cropstart.cropper': function(e) {},
-	    'cropmove.cropper': function(e) {},
-	    'cropend.cropper': function(e) {},
-	    'crop.cropper': function(e) {},
-	    'zoom.cropper': function(e) {}
-	}).cropper(options);
+    ConfiguringImage(options, $image);
 
-	// Buttons
-	if (!$.isFunction(document.createElement("canvas").getContext)) {
-		$("button[data-method=\"getCroppedCanvas\"]").prop("disabled", true);
-	}
+	// Botões
+    ConfiguringButtons();
 
-	if (typeof document.createElement("cropper").style.transition === "undefined") {
-		$("button[data-method=\"rotate\"]").prop("disabled", true);
-		$("button[data-method=\"scale\"]").prop("disabled", true);
-	}
-
-	// Options
+	// Opções
 	$(".docs-toggles").on("change", "input", function () {
 	    if (!$image.data("cropper")) return;
 
@@ -119,7 +103,40 @@ function ModalCropperImageProfile() {
 	});
 
     //Salva edição da imagem
-    $("#saveImage").on("click", function() {
+    SaveCropper($image);
+
+	// Movimenta a imagem pelas setas do teclado
+    ConfiguringMoveKey($image);
+
+	// Importa imagem
+	ImportImageLocal($image);
+
+    //Abre modal de edição
+	$("#avatar-modal").modal("show");
+};
+
+function ConfiguringImage(options, $image) {
+    $image.on({
+        'build.cropper': function (e) { },
+        'built.cropper': function (e) { },
+        'cropstart.cropper': function (e) { },
+        'cropmove.cropper': function (e) { },
+        'cropend.cropper': function (e) { },
+        'crop.cropper': function (e) { },
+        'zoom.cropper': function (e) { }
+    }).cropper(options);
+}
+function ConfiguringButtons() {
+    if (!$.isFunction(document.createElement("canvas").getContext))
+        $("button[data-method=\"getCroppedCanvas\"]").prop("disabled", true);
+
+    if (typeof document.createElement("cropper").style.transition === "undefined") {
+        $("button[data-method=\"rotate\"]").prop("disabled", true);
+        $("button[data-method=\"scale\"]").prop("disabled", true);
+    }
+}
+function SaveCropper($image) {
+    $("#saveImage").on("click", function () {
         var $this = $(this);
         var data = $this.data();
         var $target;
@@ -149,67 +166,64 @@ function ModalCropperImageProfile() {
             $(".modal").modal("hide");
         }
     });
+}
+function ImportImageLocal($image) {
+    var $inputImage = $("#inputImage");
+    var url = window.URL || window.webkitURL;
+    var blobUrl;
 
-	// Movimenta a imagem pelas setas do teclado
-	$(document.body).on("keydown", function (e) {
-		if (!$image.data("cropper") || this.scrollTop > 300) {
-			return;
-		}
-		switch (e.which) {
-			case 37:
-				e.preventDefault();
-				$image.cropper("move", -1, 0);
-				break;
-			case 38:
-				e.preventDefault();
-				$image.cropper("move", 0, -1);
-				break;
-			case 39:
-				e.preventDefault();
-				$image.cropper("move", 1, 0);
-				break;
-			case 40:
-				e.preventDefault();
-				$image.cropper("move", 0, 1);
-				break;
-		}
-	});
+    if (url) {
+        $inputImage.change(function () {
+            $(".img-container").css("display", "");
+            $fileSelected = true;
+            var files = this.files;
+            var file;
 
-	// Import image
-	var $inputImage = $("#inputImage");
-	var url = window.URL || window.webkitURL;
-	var blobUrl;
+            if (!$image.data("cropper")) {
+                return;
+            }
 
-	if (url) {
-	    $inputImage.change(function () {
-	        $(".img-container").css("display", "");
-	        $fileSelected = true;
-			var files = this.files;
-			var file;
+            if (files && files.length) {
+                file = files[0];
 
-			if (!$image.data("cropper")) {
-				return;
-			}
-
-			if (files && files.length) {
-				file = files[0];
-
-				if (/^image\/\w+$/.test(file.type)) {
-					blobUrl = url.createObjectURL(file);
-					$image.one("built.cropper", function () {
-						// Revoke when load complete
-						url.revokeObjectURL(blobUrl);
-					}).cropper("reset").cropper("replace", blobUrl);
-					$inputImage.val("");
-				} else {
-					window.alert("Favor escolha uma imagem.");
-				}
-			}
-	});
-	} else {
-		$inputImage.prop("disabled", true).parent().addClass("disabled");
-	}
-
-    //Abre modal de edição
-	$("#avatar-modal").modal("show");
-};
+                if (/^image\/\w+$/.test(file.type)) {
+                    blobUrl = url.createObjectURL(file);
+                    $image.one("built.cropper", function () {
+                        // Revoke when load complete
+                        url.revokeObjectURL(blobUrl);
+                    }).cropper("reset").cropper("replace", blobUrl);
+                    $inputImage.val("");
+                } else {
+                    window.alert("Favor escolha uma imagem.");
+                }
+            }
+        });
+    } else {
+        $inputImage.prop("disabled", true).parent().addClass("disabled");
+    }
+}
+function ConfiguringMoveKey($image) {
+    $(document.body).on("keydown", function (e) {
+        if (!$image.data("cropper") || this.scrollTop > 300) {
+            return;
+        }
+        switch (e.which) {
+            case 37:
+                e.preventDefault();
+                $image.cropper("move", -1, 0);
+                break;
+            case 38:
+                e.preventDefault();
+                $image.cropper("move", 0, -1);
+                break;
+            case 39:
+                e.preventDefault();
+                $image.cropper("move", 1, 0);
+                break;
+            case 40:
+                e.preventDefault();
+                $image.cropper("move", 0, 1);
+                break;
+        }
+    });
+}
