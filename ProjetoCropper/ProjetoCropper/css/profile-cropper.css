@@ -16,11 +16,6 @@ body {
   overflow: hidden;
 }
 
-.cropper-container{
-	width: 100% !important;
-	height: 350px !important;
-}
-
 .browserupgrade {
   margin: 0;
   padding: 5px 15px;
@@ -28,7 +23,6 @@ body {
   color: #fff;
   text-align: center;
 }
-
 
 /* Header */
 
@@ -49,7 +43,7 @@ body {
 /* Jumbotron */
 
 .docs-jumbotron {
-  background-color: #0074d9;
+  background-color: #39b549;
   color: #fff;
 }
 

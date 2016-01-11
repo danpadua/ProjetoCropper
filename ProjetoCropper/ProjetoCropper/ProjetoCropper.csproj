@@ -118,7 +118,7 @@
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\cropper.css" />
     <Content Include="css\font-awesome.min.css" />
-    <Content Include="css\main.css" />
+    <Content Include="css\profile-cropper.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="img\loading.gif" />
@@ -126,6 +126,7 @@
     <Content Include="img\picture2.jpg" />
     <Content Include="index.html" />
     <Content Include="js\main.js" />
+    <Content Include="lib\profile-cropper.js" />
     <Content Include="lib\bootstrap.min.js" />
     <Content Include="lib\cropper.js" />
     <Content Include="lib\jquery.min.js" />
