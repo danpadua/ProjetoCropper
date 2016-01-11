@@ -1,5 +1,5 @@
-$('.avatar-view').on('click', function (f) {
-    $('#avatar-modal').modal('show');
+$(".avatar-view").on('click', function (f) {
+    $("#avatar-modal").modal("show");
     
 	var console = window.console || { log: function () {} };
 	var $image = $('#image');
@@ -67,13 +67,6 @@ $('.avatar-view').on('click', function (f) {
 		$('button[data-method="scale"]').prop('disabled', true);
 	}
 
-
-	// Download
-	if (typeof $download[0].download === 'undefined') {
-		$download.addClass('disabled');
-	}
-
-
 	// Options
 	$('.docs-toggles').on('change', 'input', function () {
 		var $this = $(this);
@@ -101,63 +94,36 @@ $('.avatar-view').on('click', function (f) {
 		$image.cropper('destroy').cropper(options);
 	});
 
-  // Methods
-	$('.docs-buttons').on('click', '[data-method]', function () {
-		var $this = $(this);
-		var data = $this.data();
-		var $target;
-		var result;
+    $('#saveImage').on('click', function() {
+        var $this = $(this);
+        var data = $this.data();
+        var $target;
+        var result;
 
-		if ($this.prop('disabled') || $this.hasClass('disabled')) {
-			return;
-		}
+        if ($this.prop('disabled') || $this.hasClass('disabled')) {
+            return;
+        }
 
-		if ($image.data('cropper') && data.method) {
-			data = $.extend({}, data); // Clone a new one
+        if ($image.data('cropper') && data.method) {
+            data = $.extend({}, data); // Clone a new one
 
-			if (typeof data.target !== 'undefined') {
-				$target = $(data.target);
+            if (typeof data.target !== 'undefined') {
+                $target = $(data.target);
 
-				if (typeof data.option === 'undefined') {
-					try {
-						data.option = JSON.parse($target.val());
-					} catch (e) {
-						console.log(e.message);
-					}
-				}
-			}
+                if (typeof data.option === 'undefined') {
+                    try {
+                        data.option = JSON.parse($target.val());
+                    } catch (e) {
+                        console.log(e.message);
+                    }
+                }
+            }
 
-			result = $image.cropper(data.method, data.option, data.secondOption);
-
-			switch (data.method) {
-				case 'scaleX':
-				case 'scaleY':
-					$(this).data('option', -data.option);
-					break;
-				case 'getCroppedCanvas':
-				    if (result) {
-						console.log(result.toDataURL());
-						// Bootstrap's Modal
-						//$('#getCroppedCanvasModal').modal().find('.modal-body').html(result);
-						/*if (!$download.hasClass('disabled')) {
-							//$("#imgProfile").attr('src', result.toDataURL());
-							//$download.attr('href', result.toDataURL());
-						}*/
-					}
-					break;
-			}
-
-			if ($.isPlainObject(result) && $target) {
-				try {
-					$target.val(JSON.stringify(result));
-					console.log($target.val());
-				} catch (e) {
-					console.log(e.message);
-				}
-			}
-		}
-	});
-
+            result = $image.cropper(data.method, data.option, data.secondOption);
+            $("#imgProfile").attr('src', result.toDataURL());
+            $(".modal").modal('hide');
+        }
+    });
 
 	// Keyboard
 	$(document.body).on('keydown', function (e) {

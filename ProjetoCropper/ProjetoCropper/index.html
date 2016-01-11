@@ -19,152 +19,82 @@
   <![endif]-->
 </head>
 <body>
-  <!--[if lt IE 8]>
-    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
-
-  
-
-  <!-- Jumbotron -->
-  <div class="jumbotron docs-jumbotron">
-    <div class="container">
-      <h1>Cropper</h1>
-      <p class="lead">Prototipo de alteração de imagem.</p>
-    </div>
-  </div>
-
-  <!-- Content -->
-  <div class="container">
-	<div class="col-sm-12">
-	    <div class="avatar-view" title="Alterar Imagem">
-	        <img id="imgProfile" src="img/picture2.jpg" alt="Avatar" width="215" height="215">
-	    </div>
-	</div>
-	<!-- Cropping modal -->
-    <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="getCroppedCanvasTitle">Edite a sua Imagem</h4>
-			</div>
-			<div class="container">
-			  <div class="col-md-6">
-				<div class="img-container">
-				  <img id="image" src="" alt="Picture">
-				</div>
-			  </div>
-			  <div class="col-md-6">
-				<!-- <h3 class="page-header">Preview:</h3> -->
-				<div class="docs-preview clearfix">
-				  <div class="row">
-					<div class="img-preview preview-lg"></div>
-				  </div>
-				</div>
-			  </div>
-			</div>
-			<div class="container">
-			  <div class="col-md-9 docs-buttons">
-				<!-- <h3 class="page-header">Toolbar:</h3> -->
-
-				<div class="btn-group">
-				  <button type="button" class="btn btn-primary" data-method="reset" title="Reset">
-					<span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;reset&quot;)">
-					  <span class="fa fa-refresh"></span>
-					</span>
-				  </button>
-				  <label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file">
-					<input type="file" class="sr-only" id="inputImage" name="file" accept="image/*">
-					<span class="docs-tooltip" data-toggle="tooltip" title="Import image with Blob URLs">
-					  <span class="fa fa-upload"></span>
-					</span>
-				  </label>
-				</div>
-
-				<div class="btn-group btn-group-crop">
-				  <button type="button" class="btn btn-primary" data-method="getCroppedCanvas">
-					<span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;getCroppedCanvas&quot;)">
-					  Get Cropped Canvas
-					</span>
-				  </button>
-				  <button type="button" class="btn btn-primary" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 160, &quot;height&quot;: 90 }">
-					<span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;getCroppedCanvas&quot;, { width: 160, height: 90 })">
-					  160&times;90
-					</span>
-				  </button>
-				  <button type="button" class="btn btn-primary" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 320, &quot;height&quot;: 180 }">
-					<span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;getCroppedCanvas&quot;, { width: 320, height: 180 })">
-					  320&times;180
-					</span>
-				  </button>
-				</div>
-				<div class="docs-toggles">
-					<div class="btn-group btn-group-justified" data-toggle="buttons">
-					  <label class="btn btn-primary active">
-						<input type="radio" class="sr-only" id="aspectRatio0" name="aspectRatio" value="1.7777777777777777">
-						<span class="docs-tooltip" data-toggle="tooltip" title="aspectRatio: 16 / 9">
-						  16:9
-						</span>
-					  </label>
-					  <label class="btn btn-primary">
-						<input type="radio" class="sr-only" id="aspectRatio1" name="aspectRatio" value="1.3333333333333333">
-						<span class="docs-tooltip" data-toggle="tooltip" title="aspectRatio: 4 / 3">
-						  4:3
-						</span>
-					  </label>
-					  <label class="btn btn-primary">
-						<input type="radio" class="sr-only" id="aspectRatio2" name="aspectRatio" value="1">
-						<span class="docs-tooltip" data-toggle="tooltip" title="aspectRatio: 1 / 1">
-						  1:1
-						</span>
-					  </label>
-					  <label class="btn btn-primary">
-						<input type="radio" class="sr-only" id="aspectRatio3" name="aspectRatio" value="0.6666666666666666">
-						<span class="docs-tooltip" data-toggle="tooltip" title="aspectRatio: 2 / 3">
-						  2:3
-						</span>
-					  </label>
-					  <label class="btn btn-primary">
-						<input type="radio" class="sr-only" id="aspectRatio4" name="aspectRatio" value="NaN">
-						<span class="docs-tooltip" data-toggle="tooltip" title="aspectRatio: NaN">
-						  Free
-						</span>
-					  </label>
-					</div>
-				</div>
-
-			  </div><!-- /.docs-buttons -->
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-				<a class="btn btn-primary" id="download" href="javascript:void(0);" >Salvar</a>
-			</div>
-		  </div>
+    <!--[if lt IE 8]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <!-- Jumbotron -->
+    <div class="jumbotron docs-jumbotron">
+        <div class="container">
+            <h1>Cropper</h1>
+            <p class="lead">Prototipo de alteração de imagem.</p>
         </div>
-      </div>
-		<!-- Show the cropped image in modal -->
-		<div class="modal fade docs-cropped" id="getCroppedCanvasModal" aria-hidden="true" aria-labelledby="getCroppedCanvasTitle" role="dialog" tabindex="-1">
-		  <div class="modal-dialog">
-			<div class="modal-content">
-			  <div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="getCroppedCanvasTitle">Cropped</h4>
-			  </div>
-			  <div class="modal-body"></div>
-			  <div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<a class="btn btn-primary" id="download" href="javascript:void(0);" download="cropped.png">Download</a>
-			  </div>
-			</div>
-		  </div>
-		</div><!-- /.modal -->
-    </div><!-- /.modal -->
-    
+    </div>
+    <!-- Content -->
+    <div class="container">
+        <div class="col-sm-12">
+            <div class="avatar-view" title="Alterar Imagem">
+                <img id="imgProfile" src="img/picture2.jpg" alt="Avatar" width="215" height="215">
+            </div>
+        </div>
+        <!-- Cropping modal -->
+        <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="getCroppedCanvasTitle">Edite a sua Imagem</h4>
+                    </div>
+                    <div class="container">
+                        <div class="col-md-6">
+                            <div class="img-container">
+                                <img id="image" src="" alt="Picture">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- <h3 class="page-header">Preview:</h3> -->
+                            <div class="docs-preview clearfix">
+                                <div class="row">
+                                    <div class="img-preview preview-lg"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="col-md-9 docs-buttons">
+                            <!-- <h3 class="page-header">Toolbar:</h3> -->
+                            <div class="btn-group">
+                                <label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file">
+                                    <input type="file" class="sr-only" id="inputImage" name="file" accept="image/*">
+                                    <span class="docs-tooltip" data-toggle="tooltip" title="Escolher Imagem">
+                                        <span class="fa fa-upload"> Escolher Imagem</span>
+                                    </span>
+                                </label>
+                            </div>
 
-  <!-- Scripts -->
-  <script src="/lib/jquery.min.js"></script>
-  <script src="/lib/bootstrap.min.js"></script>
-  <script src="/lib/cropper.js"></script>
-  <script src="/js/main.js"></script>
+                            <div class="docs-toggles col-sm-3">
+                                <div class="btn-group btn-group-justified" data-toggle="buttons">
+                                    <label class="btn btn-primary">
+                                        <input type="radio" class="sr-only" id="aspectRatio2" name="aspectRatio" value="1">
+                                        <span class="docs-tooltip" data-toggle="tooltip" title="aspectRatio: 1 / 1">
+                                            1:1
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div><!-- /.docs-buttons -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        <a class="btn btn-primary" id="saveImage" data-method="getCroppedCanvas" href="javascript: void(0);">Salvar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.modal -->
+    <!-- Scripts -->
+    <script src="/lib/jquery.min.js"></script>
+    <script src="/lib/bootstrap.min.js"></script>
+    <script src="/lib/cropper.js"></script>
+    <script src="/js/main.js"></script>
 </body>
 </html>
